@@ -1,0 +1,16 @@
+class Solution {
+    public List<Integer> getAllElements(TreeNode root1, TreeNode root2) {
+        List<Integer> res = new ArrayList<>();
+        traversal(root1,res);
+        traversal(root2,res);
+        Collections.sort(res);
+        return res;
+    }
+    public void traversal(TreeNode root, List<Integer> res){
+        if(root == null)
+            return;
+        res.add(root.val);
+        traversal(root.left,res);
+        traversal(root.right,res);
+    }
+}
