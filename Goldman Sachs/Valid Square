@@ -1,0 +1,19 @@
+class Solution {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+        Set<Integer> dis = new HashSet<>();
+        //for length of sides
+        dis.add(calcDistance(p1,p3));
+        dis.add(calcDistance(p1,p4));
+        dis.add(calcDistance(p2,p4));
+        dis.add(calcDistance(p3,p2));
+        //for length of diagonals
+        dis.add(calcDistance(p1,p2));
+        dis.add(calcDistance(p4,p3));
+        if(!dis.contains(0) && dis.size() == 2)
+            return true;
+        return false;
+    }
+    private int calcDistance(int[] x, int[] y){
+        return (x[0] - y[0]) * (x[0] - y[0]) + (x[1] - y[1]) * (x[1] - y[1]);
+    }
+}
