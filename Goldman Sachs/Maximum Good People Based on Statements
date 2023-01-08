@@ -1,0 +1,42 @@
+class Solution {
+    public int maximumGood(int[][] statements) {
+        int n = statements.length;
+        int count = 0; //for counting the maximum good persons
+        int combinations = 1 << n;
+        int[] arr = new int[n];
+        //iterate through all combinations of good/bad people using bit masks
+        for(int i=1;i<combinations;i++){
+            int currgp = helper(arr, i);  //currgp -- currgoodpersons
+            if(isValid(statements, arr)){
+                count = Math.max(count, currgp);
+            }
+        }
+        return count;
+    }
+    //counting good people in the function 
+    private int helper(int[] arr, int mask){
+        int c = 0;
+        int n = arr.length;
+        for(int i=0;i<n;i++){
+            c += arr[i] = mask & 1;
+            mask >>= 1;
+        }
+        return c;
+    }
+    private boolean isValid(int[][] statements, int[] arr){
+        int n = statements.length;
+        for(int i=0;i<n;i++){
+            //ignore bad people
+            if(arr[i] == 0)
+                continue;
+            for(int j=0;j<n;j++){
+                if(statements[i][j] == 2){
+                    continue;
+                }
+                if(statements[i][j] != arr[j])
+                    return false;
+            }
+        }
+        return true;
+    }
+}
