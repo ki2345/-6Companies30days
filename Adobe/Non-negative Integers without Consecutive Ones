@@ -1,0 +1,28 @@
+class Solution {
+    public int findIntegers(int n) {
+        int fib[] = new int[31];
+        fib[0] = 1;
+        fib[1] = 2;
+        for(int i=2;i<31;i++){
+            fib[i] = fib[i-1] + fib[i-2];
+        }
+        int count = 0;
+        int k = 30;
+        int pre_bit = 0;
+        while(k >= 0){
+            if((n & (1 << k)) != 0){
+                count += fib[k];
+                if(pre_bit == 1){
+                    count--;
+                    break;
+                }
+                pre_bit = 1;
+            }
+            else{
+                pre_bit = 0;
+            }
+            k--;
+        }
+        return count + 1;
+    }
+}
